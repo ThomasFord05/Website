@@ -6,473 +6,180 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sonoma County Detailing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black: #080808;
-  --white: #f2f2f2;
-  --red: #c8102e;
-  --red-dark: #9b0c22;
-  --gray: #141414;
-  --gray-mid: #1e1e1e;
-  --gray-light: #666;
-  --border: #2a2a2a;
+:root{--black:#080808;--white:#f2f2f2;--red:#c8102e;--red-dark:#9b0c22;--gray:#141414;--gray-mid:#1e1e1e;--gray-light:#666;--border:#2a2a2a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+.topbar{background:var(--red);padding:8px 48px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;}
+.topbar a{color:var(--white);text-decoration:none;}
+.topbar-right{display:flex;gap:24px;align-items:center;}
+.navbar{background:var(--black);padding:0 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--red);position:sticky;top:0;z-index:999;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:var(--white);cursor:pointer;padding:14px 0;line-height:1.15;}
+.logo span{color:var(--red);}
+.nav-links{display:flex;align-items:center;list-style:none;gap:2px;}
+.nav-links li{position:relative;}
+.nav-links a,.nav-btn{display:block;padding:22px 14px;color:var(--white);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:color .2s;background:none;border:none;font-family:'Barlow',sans-serif;}
+.nav-links a:hover,.nav-btn:hover{color:var(--red);}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:var(--gray-mid);border-top:2px solid var(--red);min-width:210px;box-shadow:0 12px 40px rgba(0,0,0,.7);z-index:100;}
+.has-dropdown:hover .dropdown{display:block;}
+.dropdown a{padding:14px 20px;font-size:11px;border-bottom:1px solid var(--border);display:block;color:var(--white);text-decoration:none;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;}
+.dropdown a:hover{background:var(--red);}
+.dropdown a:last-child{border-bottom:none;}
+.nav-cta{background:var(--red)!important;color:var(--white)!important;padding:12px 22px!important;margin-left:8px;}
+.nav-cta:hover{background:var(--red-dark)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--white);}
+.mobile-menu{display:none;flex-direction:column;background:var(--gray-mid);border-top:2px solid var(--red);padding:12px 0;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{padding:13px 32px;color:var(--white);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);cursor:pointer;}
+.mobile-menu a:hover{color:var(--red);}
+.mobile-menu .sub{padding-left:48px;color:var(--gray-light);font-size:11px;}
+.page{display:none;}
+.page.active{display:block;}
+.hero{min-height:92vh;background:linear-gradient(135deg,rgba(8,8,8,.93) 0%,rgba(8,8,8,.65) 100%),url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1600&q=80') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;padding:80px 48px;position:relative;}
+.hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,110px);line-height:.95;letter-spacing:.03em;margin-bottom:28px;}
+.hero h1 em{color:var(--red);font-style:italic;}
+.hero p{font-size:17px;color:#aaa;max-width:520px;line-height:1.7;margin-bottom:40px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:var(--red);color:var(--white);padding:15px 34px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s;font-family:'Barlow',sans-serif;display:inline-block;}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--white);padding:14px 34px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:2px solid var(--white);cursor:pointer;transition:border-color .2s,color .2s;font-family:'Barlow',sans-serif;display:inline-block;}
+.btn-outline:hover{border-color:var(--red);color:var(--red);}
+.btn-white{background:var(--white);color:var(--black);padding:15px 34px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity .2s;font-family:'Barlow',sans-serif;white-space:nowrap;display:inline-block;}
+.btn-white:hover{opacity:.88;}
+section{padding:80px 48px;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,60px);letter-spacing:.04em;line-height:1;margin-bottom:20px;}
+.section-sub{font-size:16px;color:#999;line-height:1.7;max-width:600px;}
+.why-us{background:var(--gray);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:center;}
+.why-text{display:flex;flex-direction:column;gap:32px;}
+.why-item{display:flex;gap:20px;align-items:flex-start;}
+.why-icon{width:48px;height:48px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.why-item h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.why-item p{font-size:14px;color:#888;line-height:1.6;}
+.why-img{width:100%;height:480px;object-fit:cover;border-left:3px solid var(--red);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+.service-card{background:var(--gray-mid);padding:40px 32px;cursor:pointer;transition:background .2s;position:relative;overflow:hidden;}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transition:transform .3s;}
+.service-card:hover::after{transform:scaleX(1);}
+.service-card:hover{background:var(--gray);}
+.service-num{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--border);line-height:1;margin-bottom:16px;transition:color .3s;}
+.service-card:hover .service-num{color:var(--red);}
+.service-card h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.05em;margin-bottom:12px;}
+.service-card p{font-size:14px;color:#888;line-height:1.6;}
+.service-card .arrow{display:inline-block;margin-top:20px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+.testi-card{background:var(--gray-mid);padding:36px 32px;border-top:3px solid var(--red);}
+.stars{color:var(--red);font-size:16px;margin-bottom:16px;letter-spacing:2px;}
+.testi-card p{font-size:14px;color:#aaa;line-height:1.7;font-style:italic;margin-bottom:20px;}
+.testi-name{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.cta-banner{background:var(--red);padding:64px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+.cta-banner h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em;line-height:1;}
+.cta-banner p{font-size:15px;color:rgba(255,255,255,.82);margin-top:8px;}
+.cta-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.guarantee{background:var(--red);padding:28px 48px;display:flex;align-items:center;gap:24px;}
+.guarantee-icon{font-size:44px;flex-shrink:0;}
+.guarantee h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;margin-bottom:4px;}
+.guarantee p{font-size:13px;color:rgba(255,255,255,.85);}
+.page-hero{padding:80px 48px 60px;border-bottom:2px solid var(--red);background:linear-gradient(135deg,rgba(8,8,8,.96) 0%,rgba(200,16,46,.12) 100%),url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;position:relative;}
+.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,90px);letter-spacing:.04em;line-height:1;margin-bottom:16px;}
+.page-hero p{font-size:16px;color:#999;max-width:560px;line-height:1.7;}
+.packages-section{padding:72px 48px;}
+.package-block{margin-bottom:72px;}
+.package-block:last-child{margin-bottom:0;}
+.package-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+.package-header h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);letter-spacing:.05em;}
+.badge{background:var(--red);color:var(--white);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;margin-left:14px;vertical-align:middle;}
+.package-desc{font-size:15px;color:#888;line-height:1.7;max-width:680px;margin-bottom:28px;}
+.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.price-card{background:var(--gray-mid);padding:32px 28px;border-bottom:3px solid var(--border);transition:border-color .2s,background .2s;}
+.price-card:hover{border-bottom-color:var(--red);background:var(--gray);}
+.price-card .vehicle{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-light);margin-bottom:8px;}
+.price-card .price{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:.02em;line-height:1;}
+.price-card .price sup{font-size:24px;vertical-align:top;margin-top:8px;}
+.price-card .vtype{font-size:13px;color:#555;margin-top:6px;}
+.includes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px;padding:24px 28px;background:var(--gray);border-left:3px solid var(--red);}
+.inc-item{font-size:13px;color:#aaa;display:flex;align-items:center;gap:10px;}
+.inc-item::before{content:'';display:block;width:6px;height:6px;background:var(--red);flex-shrink:0;}
+.faq-section{padding:72px 48px;background:var(--gray);}
+.faq-list{margin-top:36px;max-width:800px;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:600;user-select:none;gap:16px;}
+.faq-icon{color:var(--red);font-size:22px;font-weight:300;transition:transform .3s;flex-shrink:0;}
+.faq-q.open .faq-icon{transform:rotate(45deg);}
+.faq-a{display:none;padding-bottom:20px;font-size:14px;color:#888;line-height:1.7;}
+.faq-a.open{display:block;}
+.maint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+.maint-card{background:var(--gray-mid);padding:40px 32px;text-align:center;border-top:3px solid var(--border);transition:border-color .2s;}
+.maint-card:hover{border-top-color:var(--red);}
+.maint-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--red);line-height:1;}
+.maint-unit{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:20px;}
+.maint-card h3{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.maint-card p{font-size:13px;color:#888;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:28px;}
+.contact-item h3{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.contact-item p,.contact-item a{font-size:16px;color:#aaa;text-decoration:none;transition:color .2s;}
+.contact-item a:hover{color:var(--white);}
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-group label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#555;}
+.form-group input,.form-group textarea,.form-group select{background:var(--gray);border:1px solid var(--border);color:var(--white);padding:13px 16px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--red);}
+.form-group textarea{resize:vertical;min-height:110px;}
+.form-group select option{background:var(--gray-mid);}
+footer{background:var(--gray);border-top:2px solid var(--red);padding:52px 48px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;line-height:1.15;margin-bottom:16px;display:block;cursor:pointer;}
+.footer-logo span{color:var(--red);}
+.foot-desc{font-size:13px;color:#555;line-height:1.7;}
+footer h4{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
+footer ul{list-style:none;}
+footer ul li{margin-bottom:10px;}
+footer ul a{font-size:13px;color:#777;text-decoration:none;cursor:pointer;transition:color .2s;}
+footer ul a:hover{color:var(--white);}
+.foot-contact p{font-size:13px;color:#666;line-height:2;}
+.foot-contact a{color:#666;text-decoration:none;transition:color .2s;}
+.foot-contact a:hover{color:var(--red);}
+.footer-bottom{background:var(--black);border-top:1px solid var(--border);padding:18px 48px;display:flex;justify-content:space-between;font-size:12px;color:#333;}
+@media(max-width:960px){
+  .topbar{padding:8px 24px;font-size:11px;}
+  .navbar{padding:0 24px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  section,.packages-section,.faq-section{padding:52px 24px;}
+  .hero{padding:60px 24px;min-height:80vh;}
+  .page-hero{padding:60px 24px 44px;}
+  .why-grid,.contact-grid{grid-template-columns:1fr;}
+  .why-img{height:260px;border-left:none;border-top:3px solid var(--red);}
+  .services-grid,.testimonials-grid,.maint-grid{grid-template-columns:1fr;}
+  .pricing-cards{grid-template-columns:1fr;}
+  .includes{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;padding:40px 24px;gap:32px;}
+  .footer-bottom{padding:16px 24px;flex-direction:column;gap:6px;}
+  .cta-banner{padding:48px 24px;flex-direction:column;text-align:center;}
+  .cta-btns{justify-content:center;}
+  .guarantee{padding:24px;flex-direction:column;text-align:center;}
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Barlow',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
-
-/* TOPBAR */
-.topbar {
-background:var(–red);
-padding:8px 48px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:12px;
-font-weight:600;
-letter-spacing:0.07em;
-text-transform:uppercase;
-}
-.topbar a { color:var(–white); text-decoration:none; }
-.topbar-right { display:flex; gap:24px; align-items:center; }
-
-/* NAVBAR */
-.navbar {
-background:var(–black);
-padding:0 48px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:2px solid var(–red);
-position:sticky;
-top:0;
-z-index:999;
-}
-.logo {
-font-family:‘Bebas Neue’,sans-serif;
-font-size:22px;
-letter-spacing:0.1em;
-color:var(–white);
-cursor:pointer;
-padding:14px 0;
-line-height:1.15;
-}
-.logo span { color:var(–red); }
-.nav-links { display:flex; align-items:center; list-style:none; gap:2px; }
-.nav-links li { position:relative; }
-.nav-links a, .nav-btn {
-display:block;
-padding:22px 14px;
-color:var(–white);
-text-decoration:none;
-font-size:12px;
-font-weight:700;
-letter-spacing:0.1em;
-text-transform:uppercase;
-cursor:pointer;
-transition:color .2s;
-background:none;
-border:none;
-font-family:‘Barlow’,sans-serif;
-}
-.nav-links a:hover, .nav-btn:hover { color:var(–red); }
-.dropdown {
-display:none;
-position:absolute;
-top:100%;
-left:0;
-background:var(–gray-mid);
-border-top:2px solid var(–red);
-min-width:210px;
-box-shadow:0 12px 40px rgba(0,0,0,0.7);
-z-index:100;
-}
-.has-dropdown:hover .dropdown { display:block; }
-.dropdown a {
-padding:14px 20px;
-font-size:11px;
-border-bottom:1px solid var(–border);
-display:block;
-color:var(–white);
-text-decoration:none;
-font-weight:700;
-letter-spacing:0.08em;
-text-transform:uppercase;
-transition:background .2s;
-}
-.dropdown a:hover { background:var(–red); }
-.dropdown a:last-child { border-bottom:none; }
-.nav-cta {
-background:var(–red) !important;
-color:var(–white) !important;
-padding:12px 22px !important;
-margin-left:8px;
-}
-.nav-cta:hover { background:var(–red-dark) !important; color:var(–white) !important; }
-
-/* HAMBURGER */
-.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:10px; background:none; border:none; }
-.hamburger span { display:block; width:24px; height:2px; background:var(–white); }
-.mobile-menu { display:none; flex-direction:column; background:var(–gray-mid); border-top:2px solid var(–red); padding:12px 0; }
-.mobile-menu.open { display:flex; }
-.mobile-menu a {
-padding:13px 32px;
-color:var(–white);
-text-decoration:none;
-font-size:12px;
-font-weight:700;
-letter-spacing:0.1em;
-text-transform:uppercase;
-border-bottom:1px solid var(–border);
-transition:color .2s;
-cursor:pointer;
-}
-.mobile-menu a:hover { color:var(–red); }
-.mobile-menu .sub { padding-left:48px; color:var(–gray-light); font-size:11px; }
-
-/* PAGES */
-.page { display:none; }
-.page.active { display:block; }
-
-/* HERO */
-.hero {
-min-height:92vh;
-background: linear-gradient(135deg, rgba(8,8,8,0.93) 0%, rgba(8,8,8,0.65) 100%),
-url(‘https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1600&q=80’) center/cover no-repeat;
-display:flex;
-flex-direction:column;
-justify-content:center;
-padding:80px 48px;
-position:relative;
-}
-.hero::before {
-content:’’;
-position:absolute;
-left:0; top:0; bottom:0;
-width:4px;
-background:var(–red);
-}
-.hero-tag { font-size:11px; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:var(–red); margin-bottom:20px; }
-.hero h1 { font-family:‘Bebas Neue’,sans-serif; font-size:clamp(56px,8vw,110px); line-height:0.95; letter-spacing:0.03em; margin-bottom:28px; }
-.hero h1 em { color:var(–red); font-style:italic; }
-.hero p { font-size:17px; color:#aaa; max-width:520px; line-height:1.7; margin-bottom:40px; }
-.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
-
-/* BUTTONS */
-.btn-primary {
-background:var(–red);
-color:var(–white);
-padding:15px 34px;
-font-size:12px;
-font-weight:700;
-letter-spacing:0.12em;
-text-transform:uppercase;
-text-decoration:none;
-border:none;
-cursor:pointer;
-transition:background .2s, transform .2s;
-font-family:‘Barlow’,sans-serif;
-display:inline-block;
-}
-.btn-primary:hover { background:var(–red-dark); transform:translateY(-2px); }
-.btn-outline {
-background:transparent;
-color:var(–white);
-padding:14px 34px;
-font-size:12px;
-font-weight:700;
-letter-spacing:0.12em;
-text-transform:uppercase;
-text-decoration:none;
-border:2px solid var(–white);
-cursor:pointer;
-transition:border-color .2s, color .2s, transform .2s;
-font-family:‘Barlow’,sans-serif;
-display:inline-block;
-}
-.btn-outline:hover { border-color:var(–red); color:var(–red); transform:translateY(-2px); }
-.btn-white {
-background:var(–white);
-color:var(–black);
-padding:15px 34px;
-font-size:12px;
-font-weight:700;
-letter-spacing:0.12em;
-text-transform:uppercase;
-text-decoration:none;
-border:none;
-cursor:pointer;
-transition:opacity .2s, transform .2s;
-font-family:‘Barlow’,sans-serif;
-white-space:nowrap;
-display:inline-block;
-}
-.btn-white:hover { opacity:0.88; transform:translateY(-2px); }
-
-/* SECTIONS */
-section { padding:80px 48px; }
-.section-label { font-size:11px; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:var(–red); margin-bottom:12px; }
-.section-title { font-family:‘Bebas Neue’,sans-serif; font-size:clamp(36px,5vw,60px); letter-spacing:0.04em; line-height:1; margin-bottom:20px; }
-.section-sub { font-size:16px; color:#999; line-height:1.7; max-width:600px; }
-
-/* WHY US */
-.why-us { background:var(–gray); border-top:1px solid var(–border); border-bottom:1px solid var(–border); }
-.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:48px; align-items:center; }
-.why-text { display:flex; flex-direction:column; gap:32px; }
-.why-item { display:flex; gap:20px; align-items:flex-start; }
-.why-icon { width:48px; height:48px; background:var(–red); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.why-item h3 { font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; }
-.why-item p { font-size:14px; color:#888; line-height:1.6; }
-.why-img { width:100%; height:480px; object-fit:cover; border-left:3px solid var(–red); }
-
-/* SERVICES OVERVIEW */
-.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:48px; }
-.service-card {
-background:var(–gray-mid);
-padding:40px 32px;
-cursor:pointer;
-transition:background .2s;
-position:relative;
-overflow:hidden;
-}
-.service-card::after {
-content:’’;
-position:absolute;
-bottom:0; left:0; right:0;
-height:3px;
-background:var(–red);
-transform:scaleX(0);
-transition:transform .3s;
-}
-.service-card:hover::after { transform:scaleX(1); }
-.service-card:hover { background:var(–gray); }
-.service-num { font-family:‘Bebas Neue’,sans-serif; font-size:64px; color:var(–border); line-height:1; margin-bottom:16px; transition:color .3s; }
-.service-card:hover .service-num { color:var(–red); }
-.service-card h3 { font-family:‘Bebas Neue’,sans-serif; font-size:28px; letter-spacing:0.05em; margin-bottom:12px; }
-.service-card p { font-size:14px; color:#888; line-height:1.6; }
-.service-card .arrow { display:inline-block; margin-top:20px; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(–red); }
-
-/* TESTIMONIALS */
-.testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:48px; }
-.testi-card { background:var(–gray-mid); padding:36px 32px; border-top:3px solid var(–red); }
-.stars { color:var(–red); font-size:16px; margin-bottom:16px; letter-spacing:2px; }
-.testi-card p { font-size:14px; color:#aaa; line-height:1.7; font-style:italic; margin-bottom:20px; }
-.testi-name { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; }
-
-/* CTA BANNER */
-.cta-banner {
-background:var(–red);
-padding:64px 48px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:32px;
-flex-wrap:wrap;
-}
-.cta-banner h2 { font-family:‘Bebas Neue’,sans-serif; font-size:clamp(28px,4vw,52px); letter-spacing:0.04em; line-height:1; }
-.cta-banner p { font-size:15px; color:rgba(255,255,255,0.82); margin-top:8px; }
-.cta-btns { display:flex; gap:14px; flex-wrap:wrap; align-items:center; flex-shrink:0; }
-
-/* GUARANTEE */
-.guarantee { background:var(–red); padding:28px 48px; display:flex; align-items:center; gap:24px; }
-.guarantee-icon { font-size:44px; flex-shrink:0; }
-.guarantee h3 { font-family:‘Bebas Neue’,sans-serif; font-size:28px; letter-spacing:0.04em; margin-bottom:4px; }
-.guarantee p { font-size:13px; color:rgba(255,255,255,0.85); }
-
-/* PAGE HERO */
-.page-hero {
-padding:80px 48px 60px;
-border-bottom:2px solid var(–red);
-background: linear-gradient(135deg, rgba(8,8,8,0.96) 0%, rgba(200,16,46,0.12) 100%),
-url(‘https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80’) center/cover no-repeat;
-position:relative;
-}
-.page-hero h1 { font-family:‘Bebas Neue’,sans-serif; font-size:clamp(48px,7vw,90px); letter-spacing:0.04em; line-height:1; margin-bottom:16px; }
-.page-hero p { font-size:16px; color:#999; max-width:560px; line-height:1.7; }
-
-/* PACKAGES */
-.packages-section { padding:72px 48px; }
-.package-block { margin-bottom:72px; }
-.package-block:last-child { margin-bottom:0; }
-.package-header {
-display:flex;
-align-items:flex-end;
-justify-content:space-between;
-margin-bottom:24px;
-padding-bottom:20px;
-border-bottom:1px solid var(–border);
-flex-wrap:wrap;
-gap:16px;
-}
-.package-header h2 { font-family:‘Bebas Neue’,sans-serif; font-size:clamp(28px,4vw,44px); letter-spacing:0.05em; }
-.badge {
-background:var(–red);
-color:var(–white);
-font-size:10px;
-font-weight:700;
-letter-spacing:0.12em;
-text-transform:uppercase;
-padding:5px 12px;
-margin-left:14px;
-vertical-align:middle;
-}
-.package-desc { font-size:15px; color:#888; line-height:1.7; max-width:680px; margin-bottom:28px; }
-.pricing-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:0; }
-.price-card {
-background:var(–gray-mid);
-padding:32px 28px;
-border-bottom:3px solid var(–border);
-transition:border-color .2s, background .2s;
-}
-.price-card:hover { border-bottom-color:var(–red); background:var(–gray); }
-.price-card .vehicle { font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(–gray-light); margin-bottom:8px; }
-.price-card .price { font-family:‘Bebas Neue’,sans-serif; font-size:52px; letter-spacing:0.02em; line-height:1; }
-.price-card .price sup { font-size:24px; vertical-align:top; margin-top:8px; }
-.price-card .vtype { font-size:13px; color:#555; margin-top:6px; }
-
-/* INCLUDES */
-.includes {
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:2px;
-padding:24px 28px;
-background:var(–gray);
-border-left:3px solid var(–red);
-}
-.inc-item {
-font-size:13px;
-color:#aaa;
-display:flex;
-align-items:center;
-gap:10px;
-}
-.inc-item::before { content:’’; display:block; width:6px; height:6px; background:var(–red); flex-shrink:0; }
-
-/* FAQ */
-.faq-section { padding:72px 48px; background:var(–gray); }
-.faq-list { margin-top:36px; max-width:800px; }
-.faq-item { border-bottom:1px solid var(–border); }
-.faq-q {
-padding:20px 0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-cursor:pointer;
-font-size:15px;
-font-weight:600;
-user-select:none;
-gap:16px;
-}
-.faq-q .faq-icon { color:var(–red); font-size:22px; font-weight:300; transition:transform .3s; flex-shrink:0; }
-.faq-q.open .faq-icon { transform:rotate(45deg); }
-.faq-a { display:none; padding-bottom:20px; font-size:14px; color:#888; line-height:1.7; }
-.faq-a.open { display:block; }
-
-/* MAINTENANCE */
-.maint-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:48px; }
-.maint-card { background:var(–gray-mid); padding:40px 32px; text-align:center; border-top:3px solid var(–border); transition:border-color .2s; }
-.maint-card:hover { border-top-color:var(–red); }
-.maint-num { font-family:‘Bebas Neue’,sans-serif; font-size:80px; color:var(–red); line-height:1; }
-.maint-unit { font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:20px; }
-.maint-card h3 { font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px; }
-.maint-card p { font-size:13px; color:#888; line-height:1.6; }
-
-/* CONTACT */
-.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:48px; align-items:start; }
-.contact-info { display:flex; flex-direction:column; gap:28px; }
-.contact-item h3 { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(–red); margin-bottom:6px; }
-.contact-item p, .contact-item a { font-size:16px; color:#aaa; text-decoration:none; transition:color .2s; }
-.contact-item a:hover { color:var(–white); }
-.contact-form { display:flex; flex-direction:column; gap:14px; }
-.form-group { display:flex; flex-direction:column; gap:7px; }
-.form-group label { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#555; }
-.form-group input, .form-group textarea, .form-group select {
-background:var(–gray);
-border:1px solid var(–border);
-color:var(–white);
-padding:13px 16px;
-font-size:14px;
-font-family:‘Barlow’,sans-serif;
-outline:none;
-transition:border-color .2s;
--webkit-appearance:none;
-}
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(–red); }
-.form-group textarea { resize:vertical; min-height:110px; }
-.form-group select option { background:var(–gray-mid); }
-
-/* FOOTER */
-footer {
-background:var(–gray);
-border-top:2px solid var(–red);
-padding:52px 48px;
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr;
-gap:48px;
-}
-.footer-logo { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:0.1em; line-height:1.15; margin-bottom:16px; display:block; cursor:pointer; }
-.footer-logo span { color:var(–red); }
-footer .foot-desc { font-size:13px; color:#555; line-height:1.7; }
-footer h4 { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(–red); margin-bottom:20px; }
-footer ul { list-style:none; }
-footer ul li { margin-bottom:10px; }
-footer ul a { font-size:13px; color:#777; text-decoration:none; cursor:pointer; transition:color .2s; }
-footer ul a:hover { color:var(–white); }
-.foot-contact p { font-size:13px; color:#666; line-height:2; }
-.foot-contact a { color:#666; text-decoration:none; transition:color .2s; }
-.foot-contact a:hover { color:var(–red); }
-.footer-bottom {
-background:var(–black);
-border-top:1px solid var(–border);
-padding:18px 48px;
-display:flex;
-justify-content:space-between;
-font-size:12px;
-color:#333;
-}
-
-/* RESPONSIVE */
-@media (max-width:960px) {
-.topbar { padding:8px 24px; font-size:11px; }
-.navbar { padding:0 24px; }
-.nav-links { display:none; }
-.hamburger { display:flex; }
-section, .packages-section, .faq-section { padding:52px 24px; }
-.hero { padding:60px 24px; min-height:80vh; }
-.page-hero { padding:60px 24px 44px; }
-.why-grid, .contact-grid { grid-template-columns:1fr; }
-.why-img { height:260px; border-left:none; border-top:3px solid var(–red); }
-.services-grid, .testimonials-grid, .maint-grid { grid-template-columns:1fr; }
-.pricing-cards { grid-template-columns:1fr; }
-.includes { grid-template-columns:1fr; }
-footer { grid-template-columns:1fr; padding:40px 24px; gap:32px; }
-.footer-bottom { padding:16px 24px; flex-direction:column; gap:6px; }
-.cta-banner { padding:48px 24px; flex-direction:column; text-align:center; }
-.cta-btns { justify-content:center; }
-.guarantee { padding:24px; flex-direction:column; text-align:center; }
-}
-@media (max-width:500px) {
-.topbar-right { display:none; }
-.package-header { flex-direction:column; align-items:flex-start; }
+@media(max-width:500px){
+  .topbar-right{display:none;}
+  .package-header{flex-direction:column;align-items:flex-start;}
 }
 </style>
-
 </head>
 <body>
-
-<!-- TOP BAR -->
 
 <div class="topbar">
   <a href="tel:7075292802">&#9990; (707) 529-2802</a>
   <div class="topbar-right">
     <span>Serving All of Sonoma County, CA</span>
-    <a href="/cdn-cgi/l/email-protection#96fff8f0f9d6e5f9f8f9fbf7f5f9e3f8e2eff2f3e2f7fffafff8f1b8f5f9fb"><span class="__cf_email__" data-cfemail="2841464e47685b47464745494b475d465c514c4d5c49414441464f064b4745">[email&#160;protected]</span></a>
+    <a href="mailto:info@sonomacountydetailing.com">info@sonomacountydetailing.com</a>
   </div>
 </div>
-
-<!-- NAVBAR -->
 
 <nav class="navbar">
   <div class="logo" onclick="showPage('home')">SONOMA COUNTY<br><span>DETAILING</span></div>
@@ -504,25 +211,18 @@ footer { grid-template-columns:1fr; padding:40px 24px; gap:32px; }
   <a onclick="showPage('contact');toggleMobile()" style="color:var(--red);">Book Online &#8594;</a>
 </div>
 
-<!-- ══════════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════════ -->
+<!-- HOME -->
 
 <div id="page-home" class="page active">
-
-  <!-- HERO -->
-
   <div class="hero">
     <div class="hero-tag">Sonoma County's Premier Mobile Detailing</div>
     <h1>Elevate<br>Your <em>Ride.</em><br>Reclaim<br>Your Time.</h1>
-    <p>Professional mobile detailing brought directly to your door. We treat every vehicle like our own — with precision, care, and an obsession for perfection.</p>
+    <p>Professional mobile detailing brought directly to your door. We treat every vehicle like our own with precision, care, and an obsession for perfection.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="showPage('contact')">Book Now</button>
       <button class="btn-outline" onclick="showPage('full')">View Packages</button>
     </div>
   </div>
-
-  <!-- WHY US -->
 
   <section class="why-us">
     <div style="max-width:1200px;margin:0 auto;">
@@ -530,729 +230,338 @@ footer { grid-template-columns:1fr; padding:40px 24px; gap:32px; }
       <div class="section-title">A Higher Standard of Care</div>
       <div class="why-grid">
         <div class="why-text">
-          <div class="why-item">
-            <div class="why-icon">&#127942;</div>
-            <div>
-              <h3>Professional Results</h3>
-              <p>We use only premium-grade products and professional equipment to deliver results that meet the highest standards — on every vehicle, every time.</p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-icon">&#9889;</div>
-            <div>
-              <h3>Time Savings</h3>
-              <p>We come to you — at home, at work, wherever is convenient. No drop-offs, no waiting around. Just a flawless detail on your schedule.</p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-icon">&#128172;</div>
-            <div>
-              <h3>Communication First</h3>
-              <p>We consider ourselves a hospitality provider first, detailing service second. Our team keeps you informed before, during, and after every appointment.</p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-icon">&#128274;</div>
-            <div>
-              <h3>Trust &amp; Reliability</h3>
-              <p>Your vehicle is one of your most valuable assets. We treat it with the same level of care and respect we'd give our own — always.</p>
-            </div>
-          </div>
+          <div class="why-item"><div class="why-icon">&#127942;</div><div><h3>Professional Results</h3><p>We use only premium-grade products and professional equipment to deliver results that meet the highest standards on every vehicle, every time.</p></div></div>
+          <div class="why-item"><div class="why-icon">&#9889;</div><div><h3>Time Savings</h3><p>We come to you at home, at work, wherever is convenient. No drop-offs, no waiting around. Just a flawless detail on your schedule.</p></div></div>
+          <div class="why-item"><div class="why-icon">&#128172;</div><div><h3>Communication First</h3><p>We consider ourselves a hospitality provider first, detailing service second. Our team keeps you informed before, during, and after every appointment.</p></div></div>
+          <div class="why-item"><div class="why-icon">&#128274;</div><div><h3>Trust &amp; Reliability</h3><p>Your vehicle is one of your most valuable assets. We treat it with the same level of care and respect we would give our own, always.</p></div></div>
         </div>
         <img class="why-img" src="https://images.unsplash.com/photo-1621963416945-edf7a34b62a8?w=900&q=80" alt="Professional detailing">
       </div>
     </div>
   </section>
 
-  <!-- SERVICES OVERVIEW -->
-
   <section style="background:var(--black);">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="section-label">Our Services</div>
       <div class="section-title">What We Offer</div>
       <div class="services-grid">
-        <div class="service-card" onclick="showPage('interior')">
-          <div class="service-num">01</div>
-          <h3>Interior Detailing</h3>
-          <p>Deep clean every surface inside your cabin — from vacuuming and shampooing to leather conditioning and full sanitization.</p>
-          <span class="arrow">View Packages &#8594;</span>
-        </div>
-        <div class="service-card" onclick="showPage('exterior')">
-          <div class="service-num">02</div>
-          <h3>Exterior Detailing</h3>
-          <p>Hand wash, clay bar, 1-step paint correction, wheel and tire care. Your paint deserves the best treatment available.</p>
-          <span class="arrow">View Packages &#8594;</span>
-        </div>
-        <div class="service-card" onclick="showPage('full')">
-          <div class="service-num">03</div>
-          <h3>Full Detailing</h3>
-          <p>The complete experience — inside and out. Choose from Express, Premier, or Signature to match your needs and budget.</p>
-          <span class="arrow">View Packages &#8594;</span>
-        </div>
+        <div class="service-card" onclick="showPage('interior')"><div class="service-num">01</div><h3>Interior Detailing</h3><p>Deep clean every surface inside your cabin from vacuuming and shampooing to leather conditioning and full sanitization.</p><span class="arrow">View Packages &#8594;</span></div>
+        <div class="service-card" onclick="showPage('exterior')"><div class="service-num">02</div><h3>Exterior Detailing</h3><p>Hand wash, clay bar, 1-step paint correction, wheel and tire care. Your paint deserves the best treatment available.</p><span class="arrow">View Packages &#8594;</span></div>
+        <div class="service-card" onclick="showPage('full')"><div class="service-num">03</div><h3>Full Detailing</h3><p>The complete experience inside and out. Choose from Express, Premier, or Signature to match your needs and budget.</p><span class="arrow">View Packages &#8594;</span></div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-
-  <section style="background:var(--gray); border-top:1px solid var(--border);">
+  <section style="background:var(--gray);border-top:1px solid var(--border);">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="section-label">5-Star Reviews</div>
       <div class="section-title">What Our Clients Say</div>
       <div class="testimonials-grid">
-        <div class="testi-card">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>"Absolutely wonderful to work with and incredibly professional. They went above and beyond from start to finish. Our SUV was no easy task with three little ones, but they did an exceptional job. Highly recommend!!!"</p>
-          <div class="testi-name">&#8212; Christina D.</div>
-        </div>
-        <div class="testi-card">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>"Not only did they come out to my house and show up on time — my car looks like it's brand new. I am floored by how clean they got it. I also appreciated all the communication before and on the day of service."</p>
-          <div class="testi-name">&#8212; Libby G.</div>
-        </div>
-        <div class="testi-card">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>"I have a big German shepherd who sheds plus messy kids — not even ONE hair found in the car when they were done. They are miracle workers. Communication was top notch from first contact to completion."</p>
-          <div class="testi-name">&#8212; Jessica F.</div>
-        </div>
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Absolutely wonderful to work with and incredibly professional. They went above and beyond from start to finish. Our SUV was no easy task with three little ones, but they did an exceptional job. Highly recommend!"</p><div class="testi-name">&#8212; Christina D.</div></div>
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Not only did they come out to my house and show up on time, my car looks like it is brand new. I am floored by how clean they got it. I also appreciated all the communication before and on the day of service."</p><div class="testi-name">&#8212; Libby G.</div></div>
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"I have a big German shepherd who sheds plus messy kids and not even ONE hair was found in the car when they were done. They are miracle workers. Communication was top notch from first contact to completion."</p><div class="testi-name">&#8212; Jessica F.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA BANNER -->
-
   <div class="cta-banner">
-    <div>
-      <h2>Ready for a Showroom Finish?</h2>
-      <p>Book your detail today — we come to you anywhere in Sonoma County.</p>
-    </div>
+    <div><h2>Ready for a Showroom Finish?</h2><p>Book your detail today. We come to you anywhere in Sonoma County.</p></div>
     <div class="cta-btns">
       <button class="btn-white" onclick="showPage('contact')">Book Now</button>
       <a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a>
     </div>
   </div>
-
-  <!-- GUARANTEE -->
-
-  <div class="guarantee">
-    <div class="guarantee-icon">&#10003;</div>
-    <div>
-      <h3>100% Satisfaction Guarantee</h3>
-      <p>We're not done until you're completely satisfied. Your vehicle, your standards — we meet them every time.</p>
-    </div>
-  </div>
-
+  <div class="guarantee"><div class="guarantee-icon">&#10003;</div><div><h3>100% Satisfaction Guarantee</h3><p>We are not done until you are completely satisfied. Your vehicle, your standards, we meet them every time.</p></div></div>
 </div>
-<!-- /HOME PAGE -->
 
-<!-- ══════════════════════════════════════════
-     INTERIOR PAGE
-══════════════════════════════════════════ -->
+<!-- INTERIOR -->
 
 <div id="page-interior" class="page">
-
   <div class="page-hero">
     <div class="section-label">Interior Services</div>
-    <h1>Interior<br>Detailing</h1>
-    <p>Step into a cabin that feels brand new. We restore every surface — bringing back the cleanliness, comfort, and pride that comes with a spotless interior.</p>
+    <h1>Interior Detailing</h1>
+    <p>Step into a cabin that feels brand new. We restore every surface bringing back the cleanliness, comfort, and pride that comes with a spotless interior.</p>
   </div>
-
   <div class="packages-section" style="max-width:1200px;margin:0 auto;">
-
-```
-<!-- EXPRESS INTERIOR -->
-<div class="package-block">
-  <div class="package-header">
-    <h2>Express Interior Detail</h2>
-    <button class="btn-primary" onclick="showPage('contact')">Book Express</button>
-  </div>
-  <p class="package-desc">A thorough vacuum, wipe-down, and interior glass clean. Perfect for regular upkeep and keeping your cabin feeling fresh between deeper cleans.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>95</div>
-      <div class="vtype">Compact / Sedan</div>
+    <div class="package-block">
+      <div class="package-header"><h2>Express Interior Detail</h2><button class="btn-primary" onclick="showPage('contact')">Book Express</button></div>
+      <p class="package-desc">A thorough vacuum, wipe-down, and interior glass clean. Perfect for regular upkeep and keeping your cabin feeling fresh between deeper cleans.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>95</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>115</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>145</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Full interior vacuum (seats, carpets, mats)</div>
+        <div class="inc-item">Dashboard &amp; surface wipe-down</div>
+        <div class="inc-item">Interior glass cleaning</div>
+        <div class="inc-item">Door panel wipe-down</div>
+        <div class="inc-item">Cup holders &amp; console cleaning</div>
+        <div class="inc-item">Air vent dusting</div>
+      </div>
     </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>115</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>145</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
-    </div>
-  </div>
-  <div class="includes">
-    <div class="inc-item">Full interior vacuum (seats, carpets, mats)</div>
-    <div class="inc-item">Dashboard &amp; surface wipe-down</div>
-    <div class="inc-item">Interior glass cleaning</div>
-    <div class="inc-item">Door panel wipe-down</div>
-    <div class="inc-item">Cup holders &amp; console cleaning</div>
-    <div class="inc-item">Air vent dusting</div>
-  </div>
-</div>
-
-<!-- PREMIER INTERIOR -->
-<div class="package-block">
-  <div class="package-header">
-    <div>
-      <h2>Premier Interior Detail <span class="badge">Most Popular</span></h2>
-    </div>
-    <button class="btn-primary" onclick="showPage('contact')">Book Premier</button>
-  </div>
-  <p class="package-desc">Deep shampoo of carpets and upholstery, leather conditioning, full sanitization, and detailed surface cleaning. Ideal for active lifestyles and families — restores your cabin to showroom condition.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>175</div>
-      <div class="vtype">Compact / Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>200</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>235</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
+    <div class="package-block">
+      <div class="package-header"><div><h2>Premier Interior Detail <span class="badge">Most Popular</span></h2></div><button class="btn-primary" onclick="showPage('contact')">Book Premier</button></div>
+      <p class="package-desc">Deep shampoo of carpets and upholstery, leather conditioning, full sanitization, and detailed surface cleaning. Ideal for active lifestyles and families restoring your cabin to showroom condition.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>175</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>200</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>235</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Everything in Express Interior</div>
+        <div class="inc-item">Carpet &amp; upholstery shampoo</div>
+        <div class="inc-item">Leather cleaning &amp; conditioning</div>
+        <div class="inc-item">Full interior sanitization</div>
+        <div class="inc-item">Odor elimination treatment</div>
+        <div class="inc-item">Stain removal (carpets &amp; seats)</div>
+        <div class="inc-item">Trunk / cargo area cleaning</div>
+        <div class="inc-item">Pet hair removal</div>
+      </div>
     </div>
   </div>
-  <div class="includes">
-    <div class="inc-item">Everything in Express Interior</div>
-    <div class="inc-item">Carpet &amp; upholstery shampoo</div>
-    <div class="inc-item">Leather cleaning &amp; conditioning</div>
-    <div class="inc-item">Full interior sanitization</div>
-    <div class="inc-item">Odor elimination treatment</div>
-    <div class="inc-item">Stain removal (carpets &amp; seats)</div>
-    <div class="inc-item">Trunk / cargo area cleaning</div>
-    <div class="inc-item">Pet hair removal</div>
-  </div>
-</div>
-```
-
-  </div>
-
   <section class="faq-section">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="section-label">Interior FAQ</div>
       <div class="section-title">Common Questions</div>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">What does your interior detailing include? <span class="faq-icon">+</span></div>
-          <div class="faq-a">Express includes vacuuming, surface wipe-down, interior glass cleaning, and console detailing. Premier adds carpet and upholstery shampooing, leather conditioning, full sanitization, odor treatment, stain removal, and pet hair removal.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How long does interior detailing take? <span class="faq-icon">+</span></div>
-          <div class="faq-a">The Express typically takes 1.5–2.5 hours. The Premier takes 2.5–4 hours depending on vehicle size and condition. We never rush — quality is always the priority.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How often should I get my interior detailed? <span class="faq-icon">+</span></div>
-          <div class="faq-a">We recommend an interior detail every 3–4 months. If you have pets, small children, or use your vehicle heavily, you may benefit from more frequent visits or our maintenance plan.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Do I need to prepare anything before you arrive? <span class="faq-icon">+</span></div>
-          <div class="faq-a">Please remove personal belongings from the vehicle before we arrive. This helps us work efficiently and ensures nothing gets misplaced. If the vehicle is heavily cluttered, additional charges may apply.</div>
-        </div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What does your interior detailing include? <span class="faq-icon">+</span></div><div class="faq-a">Express includes vacuuming, surface wipe-down, interior glass cleaning, and console detailing. Premier adds carpet and upholstery shampooing, leather conditioning, full sanitization, odor treatment, stain removal, and pet hair removal.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does interior detailing take? <span class="faq-icon">+</span></div><div class="faq-a">The Express typically takes 1.5 to 2.5 hours. The Premier takes 2.5 to 4 hours depending on vehicle size and condition. We never rush because quality is always the priority.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How often should I get my interior detailed? <span class="faq-icon">+</span></div><div class="faq-a">We recommend an interior detail every 3 to 4 months. If you have pets, small children, or use your vehicle heavily you may benefit from more frequent visits or our maintenance plan.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need to prepare anything before you arrive? <span class="faq-icon">+</span></div><div class="faq-a">Please remove personal belongings from the vehicle before we arrive. This helps us work efficiently and ensures nothing gets misplaced. If the vehicle is heavily cluttered, additional charges may apply.</div></div>
       </div>
     </div>
   </section>
-
-  <div class="cta-banner">
-    <div>
-      <h2>Ready to Book Your Interior Detail?</h2>
-      <p>We come to you — anywhere in Sonoma County.</p>
-    </div>
-    <div class="cta-btns">
-      <button class="btn-white" onclick="showPage('contact')">Book Now</button>
-      <a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a>
-    </div>
-  </div>
-
+  <div class="cta-banner"><div><h2>Ready to Book Your Interior Detail?</h2><p>We come to you anywhere in Sonoma County.</p></div><div class="cta-btns"><button class="btn-white" onclick="showPage('contact')">Book Now</button><a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a></div></div>
 </div>
-<!-- /INTERIOR PAGE -->
 
-<!-- ══════════════════════════════════════════
-     EXTERIOR PAGE
-══════════════════════════════════════════ -->
+<!-- EXTERIOR -->
 
 <div id="page-exterior" class="page">
-
-  <div class="page-hero" style="background-image:linear-gradient(135deg, rgba(8,8,8,0.96) 0%, rgba(200,16,46,0.12) 100%), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80');">
+  <div class="page-hero" style="background-image:linear-gradient(135deg,rgba(8,8,8,.96) 0%,rgba(200,16,46,.12) 100%),url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80');">
     <div class="section-label">Exterior Services</div>
-    <h1>Exterior<br>Detailing</h1>
-    <p>Your vehicle's exterior deserves more than a simple wash. Our meticulous process enhances every curve — leaving a deep, mirror-like finish with long-lasting protection.</p>
+    <h1>Exterior Detailing</h1>
+    <p>Your vehicle's exterior deserves more than a simple wash. Our meticulous process enhances every curve leaving a deep mirror-like finish with long-lasting protection.</p>
   </div>
-
   <div class="packages-section" style="max-width:1200px;margin:0 auto;">
-
-```
-<!-- EXTERIOR DETAIL -->
-<div class="package-block">
-  <div class="package-header">
-    <h2>Exterior Detail</h2>
-    <button class="btn-primary" onclick="showPage('contact')">Book Exterior</button>
-  </div>
-  <p class="package-desc">Hand wash, clay bar treatment, and wheel and tire cleaning. A thorough and reliable exterior clean that removes contaminants and protects your paint — perfect for regular maintenance.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>115</div>
-      <div class="vtype">Compact / Sedan</div>
+    <div class="package-block">
+      <div class="package-header"><h2>Exterior Detail</h2><button class="btn-primary" onclick="showPage('contact')">Book Exterior</button></div>
+      <p class="package-desc">Hand wash, clay bar treatment, and wheel and tire cleaning. A thorough and reliable exterior clean that removes contaminants and protects your paint, perfect for regular maintenance.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>115</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>135</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>155</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Thorough hand wash</div>
+        <div class="inc-item">Clay bar treatment</div>
+        <div class="inc-item">Wheel &amp; rim cleaning</div>
+        <div class="inc-item">Tire dressing</div>
+        <div class="inc-item">Exterior surface wipe-down</div>
+        <div class="inc-item">Door jamb cleaning</div>
+      </div>
     </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>135</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>155</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
-    </div>
-  </div>
-  <div class="includes">
-    <div class="inc-item">Thorough hand wash</div>
-    <div class="inc-item">Clay bar treatment</div>
-    <div class="inc-item">Wheel &amp; rim cleaning</div>
-    <div class="inc-item">Tire dressing</div>
-    <div class="inc-item">Exterior surface wipe-down</div>
-    <div class="inc-item">Door jamb cleaning</div>
-  </div>
-</div>
-
-<!-- PAINT ENHANCEMENT -->
-<div class="package-block">
-  <div class="package-header">
-    <div>
-      <h2>Paint Enhancement Detail <span class="badge">1-Step Paint Correction</span></h2>
-    </div>
-    <button class="btn-primary" onclick="showPage('contact')">Book Paint Enhancement</button>
-  </div>
-  <p class="package-desc">Everything in the Exterior Detail plus a professional 1-step paint correction to remove light swirls, scratches, and oxidation — restoring depth, clarity, and gloss to your paint finish.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>255</div>
-      <div class="vtype">Compact / Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>300</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>350</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
+    <div class="package-block">
+      <div class="package-header"><div><h2>Paint Enhancement Detail <span class="badge">1-Step Paint Correction</span></h2></div><button class="btn-primary" onclick="showPage('contact')">Book Paint Enhancement</button></div>
+      <p class="package-desc">Everything in the Exterior Detail plus a professional 1-step paint correction to remove light swirls, scratches, and oxidation, restoring depth, clarity, and gloss to your paint finish.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>250</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>300</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>350</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Everything in Exterior Detail</div>
+        <div class="inc-item">1-step machine paint correction</div>
+        <div class="inc-item">Swirl &amp; light scratch removal</div>
+        <div class="inc-item">Oxidation treatment</div>
+        <div class="inc-item">Paint gloss restoration</div>
+        <div class="inc-item">Paint sealant / wax protection</div>
+      </div>
     </div>
   </div>
-  <div class="includes">
-    <div class="inc-item">Everything in Exterior Detail</div>
-    <div class="inc-item">1-step machine paint correction</div>
-    <div class="inc-item">Swirl &amp; light scratch removal</div>
-    <div class="inc-item">Oxidation treatment</div>
-    <div class="inc-item">Paint gloss restoration</div>
-    <div class="inc-item">Paint sealant / wax protection</div>
-  </div>
-</div>
-```
-
-  </div>
-
   <section class="faq-section">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="section-label">Exterior FAQ</div>
       <div class="section-title">Common Questions</div>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">What is 1-step paint correction? <span class="faq-icon">+</span></div>
-          <div class="faq-a">A 1-step paint correction uses a machine polisher with a single compound or polish to remove light swirl marks, surface scratches, and oxidation. It significantly improves gloss and clarity without the time and cost of a full multi-stage correction.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How often should I get an exterior detail? <span class="faq-icon">+</span></div>
-          <div class="faq-a">We recommend an exterior detail every 2–3 months to maintain the protective layer and keep your vehicle looking its best. Our maintenance plan makes this easy and cost-effective.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Will detailing remove all scratches? <span class="faq-icon">+</span></div>
-          <div class="faq-a">The Paint Enhancement with 1-step correction removes light surface scratches and swirl marks effectively. Deep scratches that penetrate through the clear coat may require more advanced treatment — contact us for a free assessment.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How long does exterior detailing take? <span class="faq-icon">+</span></div>
-          <div class="faq-a">The standard Exterior Detail takes approximately 1.5–2.5 hours. The Paint Enhancement with paint correction typically takes 3–5 hours depending on vehicle size and paint condition.</div>
-        </div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is 1-step paint correction? <span class="faq-icon">+</span></div><div class="faq-a">A 1-step paint correction uses a machine polisher with a single compound or polish to remove light swirl marks, surface scratches, and oxidation. It significantly improves gloss and clarity without the time and cost of a full multi-stage correction.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How often should I get an exterior detail? <span class="faq-icon">+</span></div><div class="faq-a">We recommend an exterior detail every 2 to 3 months to maintain the protective layer and keep your vehicle looking its best. Our maintenance plan makes this easy and cost-effective.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Will detailing remove all scratches? <span class="faq-icon">+</span></div><div class="faq-a">The Paint Enhancement with 1-step correction removes light surface scratches and swirl marks effectively. Deep scratches that penetrate through the clear coat may require more advanced treatment. Contact us for a free assessment.</div></div>
       </div>
     </div>
   </section>
-
-  <div class="cta-banner">
-    <div>
-      <h2>Bring Your Paint Back to Life.</h2>
-      <p>Book your exterior detail — we come to you anywhere in Sonoma County.</p>
-    </div>
-    <div class="cta-btns">
-      <button class="btn-white" onclick="showPage('contact')">Book Now</button>
-      <a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a>
-    </div>
-  </div>
-
+  <div class="cta-banner"><div><h2>Bring Your Paint Back to Life.</h2><p>Book your exterior detail. We come to you anywhere in Sonoma County.</p></div><div class="cta-btns"><button class="btn-white" onclick="showPage('contact')">Book Now</button><a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a></div></div>
 </div>
-<!-- /EXTERIOR PAGE -->
 
-<!-- ══════════════════════════════════════════
-     FULL DETAIL PAGE
-══════════════════════════════════════════ -->
+<!-- FULL DETAIL -->
 
 <div id="page-full" class="page">
-
-  <div class="page-hero" style="background-image:linear-gradient(135deg, rgba(8,8,8,0.96) 0%, rgba(200,16,46,0.12) 100%), url('https://images.unsplash.com/photo-1600705722908-bdb8e49f8bc9?w=1600&q=80');">
+  <div class="page-hero" style="background-image:linear-gradient(135deg,rgba(8,8,8,.96) 0%,rgba(200,16,46,.12) 100%),url('https://images.unsplash.com/photo-1600705722908-bdb8e49f8bc9?w=1600&q=80');">
     <div class="section-label">Full Service Packages</div>
-    <h1>Full Car<br>Detailing</h1>
-    <p>The complete detailing experience — inside and out. Choose from three tiers designed to match your needs, lifestyle, and standards.</p>
+    <h1>Full Car Detailing</h1>
+    <p>The complete detailing experience inside and out. Choose from three tiers designed to match your needs, lifestyle, and standards.</p>
   </div>
-
   <div class="packages-section" style="max-width:1200px;margin:0 auto;">
-
-```
-<!-- EXPRESS FULL -->
-<div class="package-block">
-  <div class="package-header">
-    <h2>Express Full Detail</h2>
-    <button class="btn-primary" onclick="showPage('contact')">Book Express</button>
-  </div>
-  <p class="package-desc">A complete interior and exterior clean for drivers who want a solid, dependable full detail at an accessible price. Great value for everyday upkeep — balancing efficiency and excellence.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>185</div>
-      <div class="vtype">Compact / Sedan</div>
+    <div class="package-block">
+      <div class="package-header"><h2>Express Full Detail</h2><button class="btn-primary" onclick="showPage('contact')">Book Express</button></div>
+      <p class="package-desc">A complete interior and exterior clean for drivers who want a solid, dependable full detail at an accessible price. Great value for everyday upkeep balancing efficiency and excellence.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>185</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>220</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>265</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Interior vacuum &amp; wipe-down</div>
+        <div class="inc-item">Interior glass cleaning</div>
+        <div class="inc-item">Dashboard &amp; console cleaning</div>
+        <div class="inc-item">Exterior hand wash</div>
+        <div class="inc-item">Clay bar treatment</div>
+        <div class="inc-item">Wheel &amp; tire cleaning</div>
+      </div>
     </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>220</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
+    <div class="package-block">
+      <div class="package-header"><div><h2>Premier Full Detail <span class="badge">Most Popular</span></h2></div><button class="btn-primary" onclick="showPage('contact')">Book Premier</button></div>
+      <p class="package-desc">A comprehensive refresh inside and out including deep interior shampoo, clay bar, polish, and wax. Designed for busy professionals and families who want a thorough full detail without paint correction.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>255</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>295</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>345</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Everything in Express Full</div>
+        <div class="inc-item">Carpet &amp; upholstery shampoo</div>
+        <div class="inc-item">Leather cleaning &amp; conditioning</div>
+        <div class="inc-item">Odor elimination</div>
+        <div class="inc-item">Exterior polish &amp; wax</div>
+        <div class="inc-item">Paint sealant protection</div>
+        <div class="inc-item">Tire dressing</div>
+        <div class="inc-item">Exterior window cleaning</div>
+      </div>
     </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>265</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
-    </div>
-  </div>
-  <div class="includes">
-    <div class="inc-item">Interior vacuum &amp; wipe-down</div>
-    <div class="inc-item">Interior glass cleaning</div>
-    <div class="inc-item">Dashboard &amp; console cleaning</div>
-    <div class="inc-item">Exterior hand wash</div>
-    <div class="inc-item">Clay bar treatment</div>
-    <div class="inc-item">Wheel &amp; tire cleaning</div>
-  </div>
-</div>
-
-<!-- PREMIER FULL -->
-<div class="package-block">
-  <div class="package-header">
-    <div>
-      <h2>Premier Full Detail <span class="badge">Most Popular</span></h2>
-    </div>
-    <button class="btn-primary" onclick="showPage('contact')">Book Premier</button>
-  </div>
-  <p class="package-desc">A comprehensive refresh inside and out — deep interior shampoo, clay bar, polish, and wax. Designed for busy professionals and families who want a thorough full detail without paint correction.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>250</div>
-      <div class="vtype">Compact / Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>295</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>345</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
+    <div class="package-block">
+      <div class="package-header"><div><h2>Signature Full Detail <span class="badge">Premium</span></h2></div><button class="btn-primary" onclick="showPage('contact')">Book Signature</button></div>
+      <p class="package-desc">The ultimate in luxury detailing. Every surface treated with maximum precision including paint correction and premium ceramic wax. For clients who demand nothing less than perfection.</p>
+      <div class="pricing-cards">
+        <div class="price-card"><div class="vehicle">Small Car</div><div class="price"><sup>$</sup>385</div><div class="vtype">Compact / Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Midsize</div><div class="price"><sup>$</sup>450</div><div class="vtype">SUV / Midsize Sedan</div></div>
+        <div class="price-card"><div class="vehicle">Large</div><div class="price"><sup>$</sup>525</div><div class="vtype">Truck / 3rd Row SUV</div></div>
+      </div>
+      <div class="includes">
+        <div class="inc-item">Everything in Premier Full</div>
+        <div class="inc-item">1-step paint correction</div>
+        <div class="inc-item">Swirl &amp; scratch removal</div>
+        <div class="inc-item">Premium ceramic wax coating</div>
+        <div class="inc-item">Engine bay wipe-down</div>
+        <div class="inc-item">Pet hair removal</div>
+        <div class="inc-item">Headlight restoration</div>
+        <div class="inc-item">Stain removal treatment</div>
+      </div>
     </div>
   </div>
-  <div class="includes">
-    <div class="inc-item">Everything in Express Full</div>
-    <div class="inc-item">Carpet &amp; upholstery shampoo</div>
-    <div class="inc-item">Leather cleaning &amp; conditioning</div>
-    <div class="inc-item">Odor elimination</div>
-    <div class="inc-item">Exterior polish &amp; wax</div>
-    <div class="inc-item">Paint sealant protection</div>
-    <div class="inc-item">Tire dressing</div>
-    <div class="inc-item">Exterior window cleaning</div>
-  </div>
-</div>
-
-<!-- SIGNATURE FULL -->
-<div class="package-block">
-  <div class="package-header">
-    <div>
-      <h2>Signature Full Detail <span class="badge">Premium</span></h2>
-    </div>
-    <button class="btn-primary" onclick="showPage('contact')">Book Signature</button>
-  </div>
-  <p class="package-desc">The ultimate in luxury detailing. Every surface treated with maximum precision — including paint correction and premium ceramic wax. For clients who demand nothing less than perfection.</p>
-  <div class="pricing-cards">
-    <div class="price-card">
-      <div class="vehicle">Small Car</div>
-      <div class="price"><sup>$</sup>385</div>
-      <div class="vtype">Compact / Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Midsize</div>
-      <div class="price"><sup>$</sup>450</div>
-      <div class="vtype">SUV / Midsize Sedan</div>
-    </div>
-    <div class="price-card">
-      <div class="vehicle">Large</div>
-      <div class="price"><sup>$</sup>525</div>
-      <div class="vtype">Truck / 3rd Row SUV</div>
-    </div>
-  </div>
-  <div class="includes">
-    <div class="inc-item">Everything in Premier Full</div>
-    <div class="inc-item">1-step paint correction</div>
-    <div class="inc-item">Swirl &amp; scratch removal</div>
-    <div class="inc-item">Premium ceramic wax coating</div>
-    <div class="inc-item">Engine bay wipe-down</div>
-    <div class="inc-item">Pet hair removal</div>
-    <div class="inc-item">Headlight restoration</div>
-    <div class="inc-item">Stain removal treatment</div>
-  </div>
-</div>
-```
-
-  </div>
-
   <section class="faq-section">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="section-label">Full Detail FAQ</div>
       <div class="section-title">Common Questions</div>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Which package should I pick? <span class="faq-icon">+</span></div>
-          <div class="faq-a">The Express is best for regular upkeep and budget-conscious clients. The Premier is our most popular — ideal for families and daily drivers wanting a thorough clean without paint correction. The Signature is for those who want the absolute best, including paint correction and premium protection.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How long does a full detail take? <span class="faq-icon">+</span></div>
-          <div class="faq-a">Express typically takes 2–3 hours. Premier takes 3–5 hours. The Signature can take 5–7 hours depending on vehicle size and condition. We never rush — we deliver quality every time.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How often should I get a full detail? <span class="faq-icon">+</span></div>
-          <div class="faq-a">We recommend a full detail every 3–6 months depending on your driving habits and lifestyle. Our maintenance plan is a great way to keep your vehicle in top shape year-round at a consistent cadence.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Can detailing improve my vehicle's resale value? <span class="faq-icon">+</span></div>
-          <div class="faq-a">Absolutely. Regular full detailing protects your paint, prevents wear and tear on interior surfaces, and keeps your vehicle in top condition — all of which significantly boost resale value when the time comes to sell.</div>
-        </div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Which package should I pick? <span class="faq-icon">+</span></div><div class="faq-a">The Express is best for regular upkeep and budget-conscious clients. The Premier is our most popular and ideal for families and daily drivers wanting a thorough clean without paint correction. The Signature is for those who want the absolute best including paint correction and premium protection.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does a full detail take? <span class="faq-icon">+</span></div><div class="faq-a">Express typically takes 2 to 3 hours. Premier takes 3 to 5 hours. The Signature can take 5 to 7 hours depending on vehicle size and condition. We never rush and we deliver quality every time.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How often should I get a full detail? <span class="faq-icon">+</span></div><div class="faq-a">We recommend a full detail every 3 to 6 months depending on your driving habits and lifestyle. Our maintenance plan is a great way to keep your vehicle in top shape year-round.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can detailing improve my vehicle's resale value? <span class="faq-icon">+</span></div><div class="faq-a">Absolutely. Regular full detailing protects your paint, prevents wear and tear on interior surfaces, and keeps your vehicle in top condition, all of which significantly boost resale value when the time comes to sell.</div></div>
       </div>
     </div>
   </section>
-
-  <div class="cta-banner">
-    <div>
-      <h2>Ready for the Full Treatment?</h2>
-      <p>Book your full detail today — we come to you anywhere in Sonoma County.</p>
-    </div>
-    <div class="cta-btns">
-      <button class="btn-white" onclick="showPage('contact')">Book Now</button>
-      <a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a>
-    </div>
-  </div>
-
+  <div class="cta-banner"><div><h2>Ready for the Full Treatment?</h2><p>Book your full detail today. We come to you anywhere in Sonoma County.</p></div><div class="cta-btns"><button class="btn-white" onclick="showPage('contact')">Book Now</button><a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a></div></div>
 </div>
-<!-- /FULL PAGE -->
 
-<!-- ══════════════════════════════════════════
-     MAINTENANCE PAGE
-══════════════════════════════════════════ -->
+<!-- MAINTENANCE -->
 
 <div id="page-maintenance" class="page">
-
   <div class="page-hero">
     <div class="section-label">Ongoing Care</div>
-    <h1>Maintenance<br>Plans</h1>
-    <p>Never let your vehicle get dirty again. Our flexible recurring plans deliver expert care on a schedule that works for you — effortlessly.</p>
+    <h1>Maintenance Plans</h1>
+    <p>Never let your vehicle get dirty again. Our flexible recurring plans deliver expert care on a schedule that works for you effortlessly.</p>
   </div>
-
   <section style="max-width:1200px;margin:0 auto;">
     <div class="section-label">Choose Your Plan</div>
-    <div class="section-title">Regular Detailing,<br>Zero Hassle.</div>
-    <p class="section-sub" style="margin-top:16px;">Our maintenance plans are designed to provide consistent expert care tailored to your driving habits and lifestyle. Whether you're on the road daily or drive more selectively, we have a plan that fits.</p>
-
-```
-<div class="maint-grid">
-  <div class="maint-card">
-    <div class="maint-num">2</div>
-    <div class="maint-unit">Week Plan</div>
-    <h3>High Frequency</h3>
-    <p>Perfect for daily drivers, luxury vehicles, or those who simply refuse to drive anything less than immaculate. Bi-weekly visits keep your vehicle in showroom condition at all times.</p>
-  </div>
-  <div class="maint-card" style="border-top-color:var(--red);">
-    <div class="maint-num">4</div>
-    <div class="maint-unit">Week Plan</div>
-    <h3>Most Popular</h3>
-    <p>Our most popular option — monthly visits deliver consistent results that protect your investment and keep your vehicle looking sharp without disrupting your routine.</p>
-  </div>
-  <div class="maint-card">
-    <div class="maint-num">6</div>
-    <div class="maint-unit">Week Plan</div>
-    <h3>Seasonal Care</h3>
-    <p>Great for those who drive more selectively or want reliable seasonal protection. Every 6 weeks ensures your paint and interior stay protected and looking their best.</p>
-  </div>
-</div>
-
-<div style="margin-top:48px; padding:40px 40px 40px 44px; background:var(--gray-mid); border-left:3px solid var(--red);">
-  <div class="section-label">How It Works</div>
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:32px; margin-top:24px;">
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">01</div>
-      <h3 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:8px 0 6px;">Get In Touch</h3>
-      <p style="font-size:13px;color:#777;line-height:1.6;">Tell us about your vehicle and how often you'd like us to come out.</p>
+    <div class="section-title">Regular Detailing, Zero Hassle.</div>
+    <p class="section-sub" style="margin-top:16px;">Our maintenance plans are designed to provide consistent expert care tailored to your driving habits and lifestyle. Whether you are on the road daily or drive more selectively, we have a plan that fits.</p>
+    <div class="maint-grid">
+      <div class="maint-card"><div class="maint-num">2</div><div class="maint-unit">Week Plan</div><h3>High Frequency</h3><p>Perfect for daily drivers, luxury vehicles, or those who simply refuse to drive anything less than immaculate. Bi-weekly visits keep your vehicle in showroom condition at all times.</p></div>
+      <div class="maint-card" style="border-top-color:var(--red);"><div class="maint-num">4</div><div class="maint-unit">Week Plan</div><h3>Most Popular</h3><p>Our most popular option. Monthly visits deliver consistent results that protect your investment and keep your vehicle looking sharp without disrupting your routine.</p></div>
+      <div class="maint-card"><div class="maint-num">6</div><div class="maint-unit">Week Plan</div><h3>Seasonal Care</h3><p>Great for those who drive more selectively or want reliable seasonal protection. Every 6 weeks ensures your paint and interior stay protected and looking their best.</p></div>
     </div>
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">02</div>
-      <h3 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:8px 0 6px;">Schedule</h3>
-      <p style="font-size:13px;color:#777;line-height:1.6;">We set up recurring appointments at a time and place that works for you.</p>
+    <div style="margin-top:48px;padding:40px;background:var(--gray-mid);border-left:3px solid var(--red);">
+      <div class="section-label">How It Works</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;margin-top:24px;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">01</div><h3 style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:8px 0 6px;">Get In Touch</h3><p style="font-size:13px;color:#777;line-height:1.6;">Tell us about your vehicle and how often you would like us to come out.</p></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">02</div><h3 style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:8px 0 6px;">Schedule</h3><p style="font-size:13px;color:#777;line-height:1.6;">We set up recurring appointments at a time and place that works for you.</p></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">03</div><h3 style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:8px 0 6px;">We Come to You</h3><p style="font-size:13px;color:#777;line-height:1.6;">Our team arrives fully equipped. No drop-offs, no hassle, no waiting.</p></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">04</div><h3 style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:8px 0 6px;">Enjoy Your Car</h3><p style="font-size:13px;color:#777;line-height:1.6;">Step into a fresh, pristine vehicle every single visit. Guaranteed.</p></div>
+      </div>
     </div>
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">03</div>
-      <h3 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:8px 0 6px;">We Come to You</h3>
-      <p style="font-size:13px;color:#777;line-height:1.6;">Our team arrives fully equipped — no drop-offs, no hassle, no waiting.</p>
-    </div>
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;">04</div>
-      <h3 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:8px 0 6px;">Enjoy Your Car</h3>
-      <p style="font-size:13px;color:#777;line-height:1.6;">Step into a fresh, pristine vehicle every single visit. Guaranteed.</p>
-    </div>
-  </div>
-</div>
-```
-
   </section>
-
-  <div class="cta-banner" style="margin-top:0;">
-    <div>
-      <h2>Start Your Maintenance Plan Today.</h2>
-      <p>Contact us to find the plan that fits your schedule and budget.</p>
-    </div>
-    <div class="cta-btns">
-      <button class="btn-white" onclick="showPage('contact')">Get Started</button>
-      <a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a>
-    </div>
-  </div>
-
+  <div class="cta-banner" style="margin-top:0;"><div><h2>Start Your Maintenance Plan Today.</h2><p>Contact us to find the plan that fits your schedule and budget.</p></div><div class="cta-btns"><button class="btn-white" onclick="showPage('contact')">Get Started</button><a href="tel:7075292802" class="btn-white" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.6);">(707) 529-2802</a></div></div>
 </div>
-<!-- /MAINTENANCE PAGE -->
 
-<!-- ══════════════════════════════════════════
-     CONTACT PAGE
-══════════════════════════════════════════ -->
+<!-- CONTACT -->
 
 <div id="page-contact" class="page">
-
   <div class="page-hero">
     <div class="section-label">Get In Touch</div>
-    <h1>Book Your<br>Detail</h1>
-    <p>Ready to experience Sonoma County Detailing? Reach out and we'll set you up with the perfect package — free estimates always included.</p>
+    <h1>Book Your Detail</h1>
+    <p>Ready to experience Sonoma County Detailing? Reach out and we will set you up with the perfect package. Free estimates always included.</p>
   </div>
-
   <section style="max-width:1200px;margin:0 auto;">
     <div class="contact-grid">
-
-```
-  <div class="contact-info">
-    <div class="section-label">Contact Info</div>
-    <div class="section-title" style="font-size:clamp(28px,4vw,46px);">Let's Get Your<br>Vehicle Detailed.</div>
-    <div class="contact-item">
-      <h3>Phone</h3>
-      <a href="tel:7075292802">(707) 529-2802</a>
-    </div>
-    <div class="contact-item">
-      <h3>Email</h3>
-      <a href="/cdn-cgi/l/email-protection#5b32353d341b28343534363a38342e352f223f3e2f3a323732353c75383436"><span class="__cf_email__" data-cfemail="20494e464f60534f4e4f4d41434f554e545944455441494c494e470e434f4d">[email&#160;protected]</span></a>
-    </div>
-    <div class="contact-item">
-      <h3>Service Area</h3>
-      <p>All of Sonoma County, CA<br>We come to you — no shop drop-off needed.</p>
-    </div>
-    <div class="contact-item">
-      <h3>Hours</h3>
-      <p>Monday – Saturday: 8am – 6pm<br>Sunday: By Appointment</p>
-    </div>
-    <div style="padding:24px; background:var(--gray-mid); border-left:3px solid var(--red);">
-      <p style="font-size:14px;color:#888;line-height:1.7;">Not sure which package is right for you? Give us a call and we'll help you choose. <strong style="color:var(--white);">Free estimates, always.</strong></p>
-    </div>
-  </div>
-
-  <div>
-    <div style="background:var(--gray-mid); padding:40px; border-top:3px solid var(--red);">
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.04em;margin-bottom:28px;">Request a Booking</h2>
-      <div class="contact-form" id="contactForm">
-        <div class="form-group">
-          <label>Full Name *</label>
-          <input type="text" placeholder="John Smith" id="fname">
-        </div>
-        <div class="form-group">
-          <label>Phone Number *</label>
-          <input type="tel" placeholder="(707) 555-0000" id="fphone">
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="john@email.com" id="femail">
-        </div>
-        <div class="form-group">
-          <label>Service Interested In</label>
-          <select id="fservice">
-            <option value="">&#8212; Select a Package &#8212;</option>
-            <option>Express Interior Detail</option>
-            <option>Premier Interior Detail</option>
-            <option>Exterior Detail</option>
-            <option>Paint Enhancement Detail</option>
-            <option>Express Full Detail</option>
-            <option>Premier Full Detail</option>
-            <option>Signature Full Detail</option>
-            <option>Maintenance Plan</option>
-            <option>Not sure — I need a recommendation</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Vehicle (Year, Make, Model)</label>
-          <input type="text" placeholder="e.g. 2022 Toyota Tacoma" id="fvehicle">
-        </div>
-        <div class="form-group">
-          <label>Message / Special Requests</label>
-          <textarea placeholder="Let us know anything helpful about your vehicle..." id="fmessage"></textarea>
-        </div>
-        <button class="btn-primary" style="width:100%;padding:18px;font-size:13px;letter-spacing:0.12em;" onclick="submitForm()">Send Request &#8594;</button>
+      <div class="contact-info">
+        <div class="section-label">Contact Info</div>
+        <div class="section-title" style="font-size:clamp(28px,4vw,46px);">Let's Get Your Vehicle Detailed.</div>
+        <div class="contact-item"><h3>Phone</h3><a href="tel:7075292802">(707) 529-2802</a></div>
+        <div class="contact-item"><h3>Email</h3><a href="mailto:info@sonomacountydetailing.com">info@sonomacountydetailing.com</a></div>
+        <div class="contact-item"><h3>Service Area</h3><p>All of Sonoma County, CA<br>We come to you.</p></div>
+        <div class="contact-item"><h3>Hours</h3><p>Monday - Saturday: 8am - 6pm<br>Sunday: By Appointment</p></div>
+        <div style="padding:24px;background:var(--gray-mid);border-left:3px solid var(--red);"><p style="font-size:14px;color:#888;line-height:1.7;">Not sure which package is right for you? Give us a call and we will help you choose. <strong style="color:var(--white);">Free estimates, always.</strong></p></div>
       </div>
-      <div id="formSuccess" style="display:none;text-align:center;padding:48px 20px;">
-        <div style="font-size:52px;margin-bottom:16px;color:var(--red);">&#10003;</div>
-        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.04em;margin-bottom:12px;">Request Sent!</h3>
-        <p style="color:#888;font-size:15px;line-height:1.7;">Thanks for reaching out! We'll be in touch within 24 hours to confirm your appointment.<br><br>Questions in the meantime? Call us at <a href="tel:7075292802" style="color:var(--red);">(707) 529-2802</a></p>
+      <div>
+        <div style="background:var(--gray-mid);padding:40px;border-top:3px solid var(--red);">
+          <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.04em;margin-bottom:28px;">Request a Booking</h2>
+          <div class="contact-form" id="contactForm">
+            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="John Smith" id="fname"></div>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" placeholder="(707) 555-0000" id="fphone"></div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@email.com" id="femail"></div>
+            <div class="form-group"><label>Service Interested In</label>
+              <select id="fservice">
+                <option value="">- Select a Package -</option>
+                <option>Express Interior Detail</option>
+                <option>Premier Interior Detail</option>
+                <option>Exterior Detail</option>
+                <option>Paint Enhancement Detail</option>
+                <option>Express Full Detail</option>
+                <option>Premier Full Detail</option>
+                <option>Signature Full Detail</option>
+                <option>Maintenance Plan</option>
+                <option>Not sure - I need a recommendation</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Vehicle (Year, Make, Model)</label><input type="text" placeholder="e.g. 2022 Toyota Tacoma" id="fvehicle"></div>
+            <div class="form-group"><label>Message / Special Requests</label><textarea placeholder="Let us know anything helpful about your vehicle..." id="fmessage"></textarea></div>
+            <button class="btn-primary" style="width:100%;padding:18px;font-size:13px;letter-spacing:.12em;" onclick="submitForm()">Send Request &#8594;</button>
+          </div>
+          <div id="formSuccess" style="display:none;text-align:center;padding:48px 20px;">
+            <div style="font-size:52px;margin-bottom:16px;color:var(--red);">&#10003;</div>
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.04em;margin-bottom:12px;">Request Sent!</h3>
+            <p style="color:#888;font-size:15px;line-height:1.7;">Thanks for reaching out! We will be in touch within 24 hours to confirm your appointment.<br><br>Questions? Call us at <a href="tel:7075292802" style="color:var(--red);">(707) 529-2802</a></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-</div>
-```
-
   </section>
-
 </div>
-<!-- /CONTACT PAGE -->
-
-<!-- ═══════════════ FOOTER ═══════════════ -->
 
 <footer>
   <div>
     <div class="footer-logo" onclick="showPage('home')">SONOMA COUNTY<br><span>DETAILING</span></div>
-    <p class="foot-desc">Professional mobile detailing serving all of Sonoma County. We come to you — delivering showroom-quality results at your home, office, or wherever is convenient.</p>
+    <p class="foot-desc">Professional mobile detailing serving all of Sonoma County. We come to you delivering showroom-quality results at your home, office, or wherever is convenient.</p>
   </div>
   <div>
     <h4>Services</h4>
@@ -1265,13 +574,7 @@ footer { grid-template-columns:1fr; padding:40px 24px; gap:32px; }
   </div>
   <div class="foot-contact">
     <h4>Contact</h4>
-    <p>
-      <a href="tel:7075292802">(707) 529-2802</a><br>
-      <a href="/cdn-cgi/l/email-protection#f69f989099b6859998999b9795998398828f929382979f9a9f9891d895999b"><span class="__cf_email__" data-cfemail="533a3d353c13203c3d3c3e32303c263d272a373627323a3f3a3d347d303c3e">[email&#160;protected]</span></a><br><br>
-      Serving All of Sonoma County, CA<br>
-      Mon&#8211;Sat: 8am &#8211; 6pm<br>
-      Sunday: By Appointment
-    </p>
+    <p><a href="tel:7075292802">(707) 529-2802</a><br><a href="mailto:info@sonomacountydetailing.com">info@sonomacountydetailing.com</a><br><br>Serving All of Sonoma County, CA<br>Mon-Sat: 8am - 6pm<br>Sunday: By Appointment</p>
   </div>
 </footer>
 <div class="footer-bottom">
@@ -1279,65 +582,42 @@ footer { grid-template-columns:1fr; padding:40px 24px; gap:32px; }
   <span>Mobile Detailing &#183; Sonoma County, CA</span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-
-function showPage(id) {
-document.querySelectorAll(’.page’).forEach(function(p){ p.classList.remove(‘active’); });
-document.getElementById(‘page-’ + id).classList.add(‘active’);
-window.scrollTo({ top: 0, behavior: ‘smooth’ });
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function toggleMobile() {
-document.getElementById(‘mobileMenu’).classList.toggle(‘open’);
+function toggleMobile(){
+  document.getElementById('mobileMenu').classList.toggle('open');
 }
-
-function submitForm() {
-var name = document.getElementById(‘fname’).value.trim();
-var phone = document.getElementById(‘fphone’).value.trim();
-var email = document.getElementById(‘femail’).value.trim();
-var service = document.getElementById(‘fservice’).value;
-var vehicle = document.getElementById(‘fvehicle’).value.trim();
-var message = document.getElementById(‘fmessage’).value.trim();
-
-if (!name || !phone) {
-alert(‘Please fill in your name and phone number.’);
-return;
+function toggleFaq(el){
+  var answer=el.nextElementSibling;
+  var isOpen=el.classList.contains('open');
+  el.closest('.faq-list').querySelectorAll('.faq-q').forEach(function(q){q.classList.remove('open');q.nextElementSibling.classList.remove('open');});
+  if(!isOpen){el.classList.add('open');answer.classList.add('open');}
 }
-
-var submitBtn = document.querySelector(’#contactForm .btn-primary’);
-submitBtn.textContent = ‘Sending…’;
-submitBtn.disabled = true;
-
-fetch(‘https://formspree.io/f/xqegjzky’, {
-method: ‘POST’,
-headers: { ‘Content-Type’: ‘application/json’, ‘Accept’: ‘application/json’ },
-body: JSON.stringify({
-name: name,
-phone: phone,
-email: email || ‘Not provided’,
-service: service || ‘Not specified’,
-vehicle: vehicle || ‘Not provided’,
-message: message || ‘No additional requests’
-})
-})
-.then(function(response) {
-if (response.ok) {
-document.getElementById(‘contactForm’).style.display = ‘none’;
-document.getElementById(‘formSuccess’).style.display = ‘block’;
-} else {
-submitBtn.textContent = ‘Send Request →’;
-submitBtn.disabled = false;
-alert(‘Something went wrong. Please call us at (707) 529-2802 or try again.’);
+function submitForm(){
+  var name=document.getElementById('fname').value.trim();
+  var phone=document.getElementById('fphone').value.trim();
+  var email=document.getElementById('femail').value.trim();
+  var service=document.getElementById('fservice').value;
+  var vehicle=document.getElementById('fvehicle').value.trim();
+  var message=document.getElementById('fmessage').value.trim();
+  if(!name||!phone){alert('Please fill in your name and phone number.');return;}
+  var btn=document.querySelector('#contactForm .btn-primary');
+  btn.textContent='Sending...';
+  btn.disabled=true;
+  fetch('https://formspree.io/f/xqegjzky',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({name:name,phone:phone,email:email||'Not provided',service:service||'Not specified',vehicle:vehicle||'Not provided',message:message||'No additional requests'})
+  }).then(function(r){
+    if(r.ok){document.getElementById('contactForm').style.display='none';document.getElementById('formSuccess').style.display='block';}
+    else{btn.textContent='Send Request →';btn.disabled=false;alert('Something went wrong. Please call us at (707) 529-2802 or try again.');}
+  }).catch(function(){btn.textContent='Send Request →';btn.disabled=false;alert('Connection error. Please call us at (707) 529-2802 or try again.');});
 }
-})
-.catch(function() {
-submitBtn.textContent = ‘Send Request →’;
-submitBtn.disabled = false;
-alert(‘Connection error. Please call us at (707) 529-2802 or try again.’);
-});
-}
+</script>
 
-function toggleFaq(el) {
-var answer = el.nextElementSibling;
-var isOpen = el.classList.contains(‘open’);
-el.closest(’.faq-list’).querySelectorAll(’.faq-q’).forEach(function(q){
+</body>
+</html>
